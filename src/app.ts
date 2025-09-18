@@ -28,7 +28,7 @@ async function buildApp(options: AppOptions = {}) {
 		throw error;
 	}
 
-	fastify.get("/", async (request, reply) => {
+	fastify.get("/", async (_request, _reply) => {
 		return { hello: "world" };
 	});
 
