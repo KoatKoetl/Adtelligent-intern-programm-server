@@ -6,8 +6,21 @@ import { getFeedDataRoutes } from "./modules/feedParser/routes/feedParser.routes
 
 export type AppOptions = Partial<FastifyServerOptions>;
 
+const pinoPrettyConfig = {
+	transport: {
+		target: "pino-pretty",
+		options: {
+			colorize: true,
+			translateTime: "HH:MM:ss Z",
+			ignore: "pid,hostname",
+		},
+	},
+};
+
 async function buildApp(options: AppOptions = {}) {
-	const fastify = Fastify();
+	const fastify = Fastify({
+		logger: pinoPrettyConfig,
+	});
 	await fastify.register(configPlugin);
 
 	try {
@@ -32,7 +45,7 @@ async function buildApp(options: AppOptions = {}) {
 		return { hello: "world" };
 	});
 
-	fastify.register(getFeedDataRoutes, { prefix: "/feed" });
+	fastify.register(getFeedDataRoutes);
 
 	return fastify;
 }
