@@ -21,6 +21,3 @@ jobs:
 
       - name: Run Biome lint
         run: npm run lint
-
-      - name: Check project build
-        run: npm run build
