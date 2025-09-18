@@ -12,7 +12,7 @@ export default fp(
 				confKey: "config",
 				schema: EnvSchema,
 				dotenv: true,
-				// biome-ignore lint/suspicious/noExplicitAny: <ASK the Vadim>
+				// biome-ignore lint/suspicious/noExplicitAny: <>
 				data: process.env as any,
 				ajv: {
 					customOptions: () => {
@@ -28,9 +28,9 @@ export default fp(
 				},
 			});
 
-			fastify.log.info("✅ Environment variables loaded successfully");
+			fastify.log.info("Environment variables loaded successfully");
 		} catch (error) {
-			fastify.log.error("❌ Error in config plugin:", error);
+			fastify.log.error("Error in config plugin:", error);
 			throw error;
 		}
 	},
