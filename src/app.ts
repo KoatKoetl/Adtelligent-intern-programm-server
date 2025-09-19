@@ -2,7 +2,6 @@ import { join } from "node:path";
 import AutoLoad from "@fastify/autoload";
 import Fastify, { type FastifyServerOptions } from "fastify";
 import configPlugin from "./config";
-import { getFeedDataRoutes } from "./modules/feedParser/routes/feedParser.routes";
 import prismaPlugin from "./prisma";
 
 export type AppOptions = Partial<FastifyServerOptions>;
@@ -44,11 +43,20 @@ async function buildApp(options: AppOptions = {}) {
 		throw error;
 	}
 
-	fastify.get("/", async (_request, _reply) => {
-		return { hello: "world" };
-	});
+	try {
+		fastify.decorate("routeLoaded", (routeName: string) => {
+			fastify.log.info(`Route loaded: ${routeName}`);
+		});
 
-	fastify.register(getFeedDataRoutes);
+		fastify.register(AutoLoad, {
+			dir: join(__dirname, "routes"),
+			options: options,
+			ignorePattern: /^((?!route).)*$/,
+		});
+	} catch (error) {
+		fastify.log.error("Error in autoload:", error);
+		throw error;
+	}
 
 	return fastify;
 }
