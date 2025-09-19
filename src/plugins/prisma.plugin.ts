@@ -15,8 +15,7 @@ const prismaPlugin: FastifyPluginAsync = fp(async function prismaPlugin(
 		fastify.pluginLoaded(pluginName);
 		fastify.log.info("Prisma connected to the database successfully.");
 	} catch (error) {
-		fastify.log.error("Failed to connect to the database.");
-		fastify.log.error(error);
+		fastify.log.error("Failed to connect to the database.", error);
 		throw error;
 	}
 
