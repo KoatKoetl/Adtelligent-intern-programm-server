@@ -45,6 +45,9 @@ async function buildApp(options: AppOptions = {}) {
 		return { hello: "world" };
 	});
 
+	const allNews = await fastify.prisma.news.findMany();
+	console.log(allNews);
+
 	fastify.register(getFeedDataRoutes);
 
 	return fastify;
