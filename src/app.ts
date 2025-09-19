@@ -3,6 +3,7 @@ import AutoLoad from "@fastify/autoload";
 import Fastify, { type FastifyServerOptions } from "fastify";
 import configPlugin from "./config";
 import { getFeedDataRoutes } from "./modules/feedParser/routes/feedParser.routes";
+import prismaPlugin from "./prisma";
 
 export type AppOptions = Partial<FastifyServerOptions>;
 
@@ -21,7 +22,9 @@ async function buildApp(options: AppOptions = {}) {
 	const fastify = Fastify({
 		logger: pinoPrettyConfig,
 	});
+
 	await fastify.register(configPlugin);
+	await fastify.register(prismaPlugin);
 
 	try {
 		fastify.decorate("pluginLoaded", (pluginName: string) => {
@@ -44,9 +47,6 @@ async function buildApp(options: AppOptions = {}) {
 	fastify.get("/", async (_request, _reply) => {
 		return { hello: "world" };
 	});
-
-	const allNews = await fastify.prisma.news.findMany();
-	console.log(allNews);
 
 	fastify.register(getFeedDataRoutes);
 
