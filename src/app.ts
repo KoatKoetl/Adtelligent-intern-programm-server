@@ -3,12 +3,28 @@ import AutoLoad from "@fastify/autoload";
 import Fastify, { type FastifyServerOptions } from "fastify";
 import configPlugin from "./config";
 import { getFeedDataRoutes } from "./modules/feedParser/routes/feedParser.routes";
+import prismaPlugin from "./prisma";
 
 export type AppOptions = Partial<FastifyServerOptions>;
 
+const pinoPrettyConfig = {
+	transport: {
+		target: "pino-pretty",
+		options: {
+			colorize: true,
+			translateTime: "HH:MM:ss Z",
+			ignore: "pid,hostname",
+		},
+	},
+};
+
 async function buildApp(options: AppOptions = {}) {
-	const fastify = Fastify();
+	const fastify = Fastify({
+		logger: pinoPrettyConfig,
+	});
+
 	await fastify.register(configPlugin);
+	await fastify.register(prismaPlugin);
 
 	try {
 		fastify.decorate("pluginLoaded", (pluginName: string) => {
@@ -32,7 +48,7 @@ async function buildApp(options: AppOptions = {}) {
 		return { hello: "world" };
 	});
 
-	fastify.register(getFeedDataRoutes, { prefix: "/feed" });
+	fastify.register(getFeedDataRoutes);
 
 	return fastify;
 }

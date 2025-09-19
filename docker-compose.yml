@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  mongo1:
+    image: mongo:latest
+    container_name: mongodb_replicaset
+    ports:
+      - 27017:27017
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - "mongo1_data:/data/db"
+      - "mongo1_config:/data/configdb"
+      - "./init-replica.sh:/init-replica.sh"
+    entrypoint: ["/init-replica.sh"]
+
+volumes:
+  mongo1_data:
+  mongo1_config:
