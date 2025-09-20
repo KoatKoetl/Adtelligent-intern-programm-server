@@ -5,8 +5,8 @@ export const EnvSchema = {
 	properties: {
 		PORT: { type: "number" },
 		HOST: { type: "string" },
-		DATABASE_URL: { type: "string" },
-		DEFAULT_FEED_URL: { type: "string" },
+		DATABASE_URL: { type: "string", format: "uri" },
+		DEFAULT_FEED_URL: { type: "string", format: "uri" },
 	},
 	required: ["PORT", "HOST", "DATABASE_URL", "DEFAULT_FEED_URL"],
 	additionalProperties: false,
