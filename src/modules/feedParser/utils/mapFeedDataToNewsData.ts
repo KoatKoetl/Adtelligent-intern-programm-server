@@ -2,7 +2,7 @@ import type { ParsedFeedData, RSSItem } from "../types/types";
 
 const mapFeedDataToNewsData = async (feedData: ParsedFeedData) => {
 	return {
-		feedInfo: feedData.feedInfo,
+		...feedData,
 		items: feedData.items.map((item: RSSItem, index: number) => ({
 			id: `temp-${index}`,
 			title: item.title || "Untitled",
