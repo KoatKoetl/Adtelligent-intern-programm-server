@@ -1,8 +1,22 @@
-interface FeedQuery {
-	url?: string;
-	force?: "0" | "1";
-}
+import type { FromSchema } from "json-schema-to-ts";
+import type { schema } from "../schema/getData.schema";
 
+const responseSchema = schema.response[200];
+
+// Auto types
+type QueryType = FromSchema<typeof schema.querystring>;
+
+type ResponseDataSchema = typeof responseSchema.properties.data;
+type DatabaseResult = FromSchema<ResponseDataSchema>;
+
+type FeedInfoSchema = typeof responseSchema.properties.data.properties.feedInfo;
+type FeedInfo = FromSchema<FeedInfoSchema>;
+
+type NewsItemSchema =
+	typeof responseSchema.properties.data.properties.items.items;
+type NewsItem = FromSchema<NewsItemSchema>;
+
+// Manual types
 interface RSSItem {
 	title?: string;
 	link?: string;
@@ -22,28 +36,6 @@ interface RSSFeed {
 	items?: RSSItem[];
 }
 
-interface NewsItem {
-	id: string;
-	title: string;
-	link: string;
-	description: string | null;
-	pubDate: Date | null;
-	author: string | null;
-	guid: string | null;
-	createdAt: Date;
-}
-
-interface FeedInfo {
-	title: string;
-	description: string;
-	link: string;
-}
-
-interface DatabaseResult {
-	items: NewsItem[];
-	total: number;
-}
-
 interface FeedDataWithInfo extends DatabaseResult {
 	feedInfo?: FeedInfo;
 }
@@ -54,13 +46,12 @@ interface ParsedFeedData {
 }
 
 export type {
-	FeedQuery,
+	DatabaseResult,
+	FeedInfo,
+	NewsItem,
+	QueryType,
 	RSSItem,
 	RSSFeed,
-	NewsItem,
-	FeedInfo,
-	DatabaseResult,
 	FeedDataWithInfo,
 	ParsedFeedData,
-	FeedItem,
 };

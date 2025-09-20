@@ -2,17 +2,17 @@ import type { JsonSchemaToTsProvider } from "@fastify/type-provider-json-schema-
 import type { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { schema } from "../schema/getData.schema";
 import { getFeedData } from "../services/handleFeed";
-import type { FeedQuery } from "../types/types";
+import type { QueryType } from "../types/types";
 
 export async function getFeedDataRoutes(fastify: FastifyInstance) {
 	const route: FastifyInstance =
 		fastify.withTypeProvider<JsonSchemaToTsProvider>();
 
-	route.get<{ Querystring: FeedQuery }>(
+	route.get<{ Querystring: QueryType }>(
 		"/feed",
 		{ schema: schema },
 		async (
-			request: FastifyRequest<{ Querystring: FeedQuery }>,
+			request: FastifyRequest<{ Querystring: QueryType }>,
 			reply: FastifyReply,
 		) => {
 			try {

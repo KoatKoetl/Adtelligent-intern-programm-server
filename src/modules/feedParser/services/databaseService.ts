@@ -5,11 +5,16 @@ export async function getNewsFromDatabase(
 	fastify: FastifyInstance,
 ): Promise<DatabaseResult> {
 	try {
-		const news = await fastify.prisma.news.findMany({
+		const newsFromDb = await fastify.prisma.news.findMany({
 			orderBy: {
 				pubDate: "desc",
 			},
 		});
+
+		const news = newsFromDb.map((item) => ({
+			...item,
+			pubDate: item.pubDate ? item.pubDate.toISOString() : null,
+		}));
 
 		const total = news.length;
 

@@ -40,7 +40,10 @@ export const schema = {
 									title: { type: "string" },
 									link: { type: "string" },
 									description: { type: ["string", "null"] },
-									pubDate: { type: ["string", "null"] },
+									pubDate: {
+										type: ["string", "null"],
+										format: "date-time",
+									},
 									author: { type: ["string", "null"] },
 									guid: { type: ["string", "null"] },
 								},
