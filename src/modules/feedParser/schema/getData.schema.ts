@@ -8,7 +8,7 @@ export const schema = {
 				description: "URL feed for parsing",
 			},
 			force: {
-				type: "boolean",
+				type: "string",
 				enum: ["0", "1"],
 				description:
 					"Force parsing: 1 - parse directly from URL, 0 - check database",
