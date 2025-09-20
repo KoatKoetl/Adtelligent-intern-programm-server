@@ -20,4 +20,5 @@ model News {
   author      String?
   guid        String?   @unique
   createdAt   DateTime  @default(now())
+  feedUrl     String
 }

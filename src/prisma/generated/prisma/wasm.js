@@ -93,7 +93,8 @@ exports.Prisma.NewsScalarFieldEnum = {
   pubDate: 'pubDate',
   author: 'author',
   guid: 'guid',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  feedUrl: 'feedUrl'
 };
 
 exports.Prisma.SortOrder = {
@@ -139,7 +140,7 @@ const config = {
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../../../.env",
+    "rootEnvPath": null,
     "schemaEnvPath": "../../../../.env"
   },
   "relativePath": "../..",
@@ -158,13 +159,13 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"./generated/prisma\"\n}\n\ndatasource db {\n  provider = \"mongodb\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel News {\n  id          String    @id @default(auto()) @map(\"_id\") @db.ObjectId\n  title       String\n  link        String    @unique\n  description String?\n  pubDate     DateTime?\n  author      String?\n  guid        String?   @unique\n  createdAt   DateTime  @default(now())\n}\n",
-  "inlineSchemaHash": "1c10c02750ea35844640194c207f6e42b31b579b01d32066e3a23b85f44a7da4",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"./generated/prisma\"\n}\n\ndatasource db {\n  provider = \"mongodb\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel News {\n  id          String    @id @default(auto()) @map(\"_id\") @db.ObjectId\n  title       String\n  link        String    @unique\n  description String?\n  pubDate     DateTime?\n  author      String?\n  guid        String?   @unique\n  createdAt   DateTime  @default(now())\n  feedUrl     String\n}\n",
+  "inlineSchemaHash": "3d21d879495a8eea8565fd11b1802bb938595cba90a73ba728979e8406e5390e",
   "copyEngine": true
 }
 config.dirname = '/'
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"News\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"_id\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"link\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"pubDate\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"author\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"guid\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"News\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"_id\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"link\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"pubDate\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"author\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"guid\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"feedUrl\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = {
   getRuntime: async () => require('./query_engine_bg.js'),

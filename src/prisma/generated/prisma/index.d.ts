@@ -829,6 +829,7 @@ export namespace Prisma {
     author: string | null
     guid: string | null
     createdAt: Date | null
+    feedUrl: string | null
   }
 
   export type NewsMaxAggregateOutputType = {
@@ -840,6 +841,7 @@ export namespace Prisma {
     author: string | null
     guid: string | null
     createdAt: Date | null
+    feedUrl: string | null
   }
 
   export type NewsCountAggregateOutputType = {
@@ -851,6 +853,7 @@ export namespace Prisma {
     author: number
     guid: number
     createdAt: number
+    feedUrl: number
     _all: number
   }
 
@@ -864,6 +867,7 @@ export namespace Prisma {
     author?: true
     guid?: true
     createdAt?: true
+    feedUrl?: true
   }
 
   export type NewsMaxAggregateInputType = {
@@ -875,6 +879,7 @@ export namespace Prisma {
     author?: true
     guid?: true
     createdAt?: true
+    feedUrl?: true
   }
 
   export type NewsCountAggregateInputType = {
@@ -886,6 +891,7 @@ export namespace Prisma {
     author?: true
     guid?: true
     createdAt?: true
+    feedUrl?: true
     _all?: true
   }
 
@@ -970,6 +976,7 @@ export namespace Prisma {
     author: string | null
     guid: string | null
     createdAt: Date
+    feedUrl: string
     _count: NewsCountAggregateOutputType | null
     _min: NewsMinAggregateOutputType | null
     _max: NewsMaxAggregateOutputType | null
@@ -998,6 +1005,7 @@ export namespace Prisma {
     author?: boolean
     guid?: boolean
     createdAt?: boolean
+    feedUrl?: boolean
   }, ExtArgs["result"]["news"]>
 
 
@@ -1011,9 +1019,10 @@ export namespace Prisma {
     author?: boolean
     guid?: boolean
     createdAt?: boolean
+    feedUrl?: boolean
   }
 
-  export type NewsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "link" | "description" | "pubDate" | "author" | "guid" | "createdAt", ExtArgs["result"]["news"]>
+  export type NewsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "link" | "description" | "pubDate" | "author" | "guid" | "createdAt" | "feedUrl", ExtArgs["result"]["news"]>
 
   export type $NewsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "News"
@@ -1027,6 +1036,7 @@ export namespace Prisma {
       author: string | null
       guid: string | null
       createdAt: Date
+      feedUrl: string
     }, ExtArgs["result"]["news"]>
     composites: {}
   }
@@ -1427,6 +1437,7 @@ export namespace Prisma {
     readonly author: FieldRef<"News", 'String'>
     readonly guid: FieldRef<"News", 'String'>
     readonly createdAt: FieldRef<"News", 'DateTime'>
+    readonly feedUrl: FieldRef<"News", 'String'>
   }
     
 
@@ -1787,7 +1798,8 @@ export namespace Prisma {
     pubDate: 'pubDate',
     author: 'author',
     guid: 'guid',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    feedUrl: 'feedUrl'
   };
 
   export type NewsScalarFieldEnum = (typeof NewsScalarFieldEnum)[keyof typeof NewsScalarFieldEnum]
@@ -1871,6 +1883,7 @@ export namespace Prisma {
     author?: StringNullableFilter<"News"> | string | null
     guid?: StringNullableFilter<"News"> | string | null
     createdAt?: DateTimeFilter<"News"> | Date | string
+    feedUrl?: StringFilter<"News"> | string
   }
 
   export type NewsOrderByWithRelationInput = {
@@ -1882,6 +1895,7 @@ export namespace Prisma {
     author?: SortOrder
     guid?: SortOrder
     createdAt?: SortOrder
+    feedUrl?: SortOrder
   }
 
   export type NewsWhereUniqueInput = Prisma.AtLeast<{
@@ -1896,6 +1910,7 @@ export namespace Prisma {
     pubDate?: DateTimeNullableFilter<"News"> | Date | string | null
     author?: StringNullableFilter<"News"> | string | null
     createdAt?: DateTimeFilter<"News"> | Date | string
+    feedUrl?: StringFilter<"News"> | string
   }, "id" | "link" | "guid">
 
   export type NewsOrderByWithAggregationInput = {
@@ -1907,6 +1922,7 @@ export namespace Prisma {
     author?: SortOrder
     guid?: SortOrder
     createdAt?: SortOrder
+    feedUrl?: SortOrder
     _count?: NewsCountOrderByAggregateInput
     _max?: NewsMaxOrderByAggregateInput
     _min?: NewsMinOrderByAggregateInput
@@ -1924,6 +1940,7 @@ export namespace Prisma {
     author?: StringNullableWithAggregatesFilter<"News"> | string | null
     guid?: StringNullableWithAggregatesFilter<"News"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"News"> | Date | string
+    feedUrl?: StringWithAggregatesFilter<"News"> | string
   }
 
   export type NewsCreateInput = {
@@ -1935,6 +1952,7 @@ export namespace Prisma {
     author?: string | null
     guid?: string | null
     createdAt?: Date | string
+    feedUrl: string
   }
 
   export type NewsUncheckedCreateInput = {
@@ -1946,6 +1964,7 @@ export namespace Prisma {
     author?: string | null
     guid?: string | null
     createdAt?: Date | string
+    feedUrl: string
   }
 
   export type NewsUpdateInput = {
@@ -1956,6 +1975,7 @@ export namespace Prisma {
     author?: NullableStringFieldUpdateOperationsInput | string | null
     guid?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    feedUrl?: StringFieldUpdateOperationsInput | string
   }
 
   export type NewsUncheckedUpdateInput = {
@@ -1966,6 +1986,7 @@ export namespace Prisma {
     author?: NullableStringFieldUpdateOperationsInput | string | null
     guid?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    feedUrl?: StringFieldUpdateOperationsInput | string
   }
 
   export type NewsCreateManyInput = {
@@ -1977,6 +1998,7 @@ export namespace Prisma {
     author?: string | null
     guid?: string | null
     createdAt?: Date | string
+    feedUrl: string
   }
 
   export type NewsUpdateManyMutationInput = {
@@ -1987,6 +2009,7 @@ export namespace Prisma {
     author?: NullableStringFieldUpdateOperationsInput | string | null
     guid?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    feedUrl?: StringFieldUpdateOperationsInput | string
   }
 
   export type NewsUncheckedUpdateManyInput = {
@@ -1997,6 +2020,7 @@ export namespace Prisma {
     author?: NullableStringFieldUpdateOperationsInput | string | null
     guid?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    feedUrl?: StringFieldUpdateOperationsInput | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -2062,6 +2086,7 @@ export namespace Prisma {
     author?: SortOrder
     guid?: SortOrder
     createdAt?: SortOrder
+    feedUrl?: SortOrder
   }
 
   export type NewsMaxOrderByAggregateInput = {
@@ -2073,6 +2098,7 @@ export namespace Prisma {
     author?: SortOrder
     guid?: SortOrder
     createdAt?: SortOrder
+    feedUrl?: SortOrder
   }
 
   export type NewsMinOrderByAggregateInput = {
@@ -2084,6 +2110,7 @@ export namespace Prisma {
     author?: SortOrder
     guid?: SortOrder
     createdAt?: SortOrder
+    feedUrl?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {

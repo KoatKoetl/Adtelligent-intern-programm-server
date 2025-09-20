@@ -121,7 +121,8 @@ exports.Prisma.NewsScalarFieldEnum = {
   pubDate: 'pubDate',
   author: 'author',
   guid: 'guid',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  feedUrl: 'feedUrl'
 };
 
 exports.Prisma.SortOrder = {
