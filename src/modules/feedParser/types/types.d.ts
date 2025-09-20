@@ -1,6 +1,6 @@
 interface FeedQuery {
 	url?: string;
-	force?: boolean;
+	force?: "0" | "1";
 }
 
 interface RSSItem {

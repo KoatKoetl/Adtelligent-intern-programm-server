@@ -9,7 +9,9 @@ export const schema = {
 			},
 			force: {
 				type: "boolean",
-				description: "Force parsing without checking database",
+				enum: ["0", "1"],
+				description:
+					"Force parsing: 1 - parse directly from URL, 0 - check database",
 			},
 		},
 		additionalProperties: false,

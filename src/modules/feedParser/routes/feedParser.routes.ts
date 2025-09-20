@@ -21,9 +21,11 @@ export async function getFeedDataRoutes(fastify: FastifyInstance) {
 			reply: FastifyReply,
 		) => {
 			try {
-				const { url = DEFAULT_FEED_URL, force = false } = request.query;
+				const { url = DEFAULT_FEED_URL, force } = request.query;
 
-				if (force) {
+				const isForceMode = force === "1";
+
+				if (isForceMode) {
 					fastify.log.info(`Force mode: parsing feed directly from ${url}`);
 					const feedData = await parseFeed(fastify, url);
 					const newsData = await mapFeedDataToNewsData(feedData);
