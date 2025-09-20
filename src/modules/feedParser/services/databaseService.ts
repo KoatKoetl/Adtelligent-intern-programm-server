@@ -11,7 +11,7 @@ export async function getNewsFromDatabase(
 			},
 		});
 
-		const total = await fastify.prisma.news.count();
+		const total = news.length;
 
 		return {
 			items: news,
