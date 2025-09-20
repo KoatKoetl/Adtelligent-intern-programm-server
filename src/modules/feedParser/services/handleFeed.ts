@@ -13,8 +13,6 @@ export async function getFeedData(
 	url: string,
 	force: string,
 ) {
-	const DEFAULT_FEED_URL = fastify.config.DEFAULT_FEED_URL;
-
 	const isForceMode = force === "1";
 
 	if (isForceMode) {
@@ -33,7 +31,7 @@ export async function getFeedData(
 	let fromCache = false;
 	let newItemsAdded = 0;
 
-	if (url !== DEFAULT_FEED_URL) {
+	if (url !== fastify.config.DEFAULT_FEED_URL) {
 		fastify.log.info(
 			`Custom URL provided: ${url}, parsing and saving to database`,
 		);

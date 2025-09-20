@@ -7,7 +7,6 @@ import type { FeedQuery } from "../types/types";
 export async function getFeedDataRoutes(fastify: FastifyInstance) {
 	const route: FastifyInstance =
 		fastify.withTypeProvider<JsonSchemaToTsProvider>();
-	const DEFAULT_FEED_URL = fastify.config.DEFAULT_FEED_URL;
 
 	route.get<{ Querystring: FeedQuery }>(
 		"/feed",
@@ -17,7 +16,8 @@ export async function getFeedDataRoutes(fastify: FastifyInstance) {
 			reply: FastifyReply,
 		) => {
 			try {
-				const { url = DEFAULT_FEED_URL, force = "0" } = request.query;
+				const { url = fastify.config.DEFAULT_FEED_URL, force = "0" } =
+					request.query;
 
 				const feedData = await getFeedData(fastify, url, force);
 
