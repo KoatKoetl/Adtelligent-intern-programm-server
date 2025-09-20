@@ -46,6 +46,7 @@ export const schema = {
 									},
 									author: { type: ["string", "null"] },
 									guid: { type: ["string", "null"] },
+									feedUrl: { type: ["string", "null"] },
 								},
 							},
 						},

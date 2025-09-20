@@ -27,6 +27,7 @@ interface RSSItem {
 	content?: string;
 	summary?: string;
 	guid?: string;
+	feedUrl?: string;
 }
 
 interface RSSFeed {
