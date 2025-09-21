@@ -10,10 +10,6 @@ type DatabaseResult = FromSchema<ResponseDataSchema>;
 type FeedInfoSchema = typeof responseSchema.properties.data.properties.feedInfo;
 type FeedInfo = FromSchema<FeedInfoSchema>;
 
-type NewsItemSchema =
-	typeof responseSchema.properties.data.properties.items.items;
-type NewsItem = FromSchema<NewsItemSchema>;
-
 // Manual types
 interface RSSItem {
 	title?: string;
@@ -35,21 +31,9 @@ interface RSSFeed {
 	items?: RSSItem[];
 }
 
-interface FeedDataWithInfo extends DatabaseResult {
-	feedInfo?: FeedInfo;
-}
-
 interface ParsedFeedData {
 	feedInfo: FeedInfo;
 	items: RSSItem[];
 }
 
-export type {
-	DatabaseResult,
-	FeedInfo,
-	NewsItem,
-	RSSItem,
-	RSSFeed,
-	FeedDataWithInfo,
-	ParsedFeedData,
-};
+export type { DatabaseResult, FeedInfo, RSSItem, RSSFeed, ParsedFeedData };

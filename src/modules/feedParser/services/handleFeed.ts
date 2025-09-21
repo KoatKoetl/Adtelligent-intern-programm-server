@@ -58,11 +58,6 @@ async function handleCachedData(fastify: FastifyInstance, url: string) {
 
 	return {
 		data: {
-			feedInfo: newsData.feedInfo || {
-				title: "News Feed",
-				description: "Latest news",
-				link: url,
-			},
 			items: newsData.items,
 			total: newsData.total,
 		},
@@ -89,7 +84,7 @@ async function handleFeedWithContentCheck(
 	);
 
 	if (allExist) {
-		return await handleAllItemsExist(fastify, url, feedType, feedData);
+		return await handleAllItemsExist(fastify, feedType, feedData);
 	}
 
 	return await handleNewItemsFound(
@@ -103,7 +98,6 @@ async function handleFeedWithContentCheck(
 
 async function handleAllItemsExist(
 	fastify: FastifyInstance,
-	url: string,
 	feedType: string,
 	feedData: ParsedFeedData,
 ) {
@@ -112,15 +106,10 @@ async function handleAllItemsExist(
 	);
 
 	const newsData = await getNewsFromDatabase(fastify);
-	newsData.feedInfo = feedData.feedInfo;
 
 	return {
 		data: {
-			feedInfo: newsData.feedInfo || {
-				title: "News Feed",
-				description: "Latest news",
-				link: url,
-			},
+			feedInfo: feedData.feedInfo,
 			items: newsData.items,
 			total: newsData.total,
 		},
@@ -144,15 +133,10 @@ async function handleNewItemsFound(
 	const newItemsAdded = await saveNewsToDatabase(fastify, feedData.items, url);
 
 	const newsData = await getNewsFromDatabase(fastify);
-	newsData.feedInfo = feedData.feedInfo;
 
 	return {
 		data: {
-			feedInfo: newsData.feedInfo || {
-				title: "News Feed",
-				description: "Latest news",
-				link: url,
-			},
+			feedInfo: feedData.feedInfo,
 			items: newsData.items,
 			total: newsData.total,
 		},

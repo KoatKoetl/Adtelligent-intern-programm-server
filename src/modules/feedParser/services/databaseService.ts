@@ -1,9 +1,7 @@
 import type { FastifyInstance } from "fastify";
-import type { DatabaseResult, RSSItem } from "../types/types";
+import type { RSSItem } from "../types/types";
 
-export async function getNewsFromDatabase(
-	fastify: FastifyInstance,
-): Promise<DatabaseResult> {
+export async function getNewsFromDatabase(fastify: FastifyInstance) {
 	try {
 		const newsFromDb = await fastify.prisma.news.findMany({
 			orderBy: {
