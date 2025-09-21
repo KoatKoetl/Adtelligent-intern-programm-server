@@ -1,11 +1,9 @@
 import type { FromSchema } from "json-schema-to-ts";
-import type { schema } from "../schema/getData.schema";
+import { schema } from "../schema/getData.schema";
 
 const responseSchema = schema.response[200];
 
 // Auto types
-type QueryType = FromSchema<typeof schema.querystring>;
-
 type ResponseDataSchema = typeof responseSchema.properties.data;
 type DatabaseResult = FromSchema<ResponseDataSchema>;
 
@@ -50,7 +48,6 @@ export type {
 	DatabaseResult,
 	FeedInfo,
 	NewsItem,
-	QueryType,
 	RSSItem,
 	RSSFeed,
 	FeedDataWithInfo,

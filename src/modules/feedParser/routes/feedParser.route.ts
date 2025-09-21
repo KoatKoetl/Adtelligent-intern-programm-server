@@ -1,31 +1,22 @@
 import type { JsonSchemaToTsProvider } from "@fastify/type-provider-json-schema-to-ts";
-import type { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
+import type { FastifyInstance } from "fastify";
 import { schema } from "../schema/getData.schema";
 import { getFeedData } from "../services/handleFeed";
-import type { QueryType } from "../types/types";
 
 export async function getFeedDataRoutes(fastify: FastifyInstance) {
-	const route: FastifyInstance =
-		fastify.withTypeProvider<JsonSchemaToTsProvider>();
+	const route = fastify.withTypeProvider<JsonSchemaToTsProvider>();
 
-	route.get<{ Querystring: QueryType }>(
-		"/feed",
-		{ schema: schema },
-		async (
-			request: FastifyRequest<{ Querystring: QueryType }>,
-			reply: FastifyReply,
-		) => {
-			try {
-				const { url = fastify.config.DEFAULT_FEED_URL, force = "0" } =
-					request.query;
+	route.get("/feed", { schema: schema }, async (request, reply) => {
+		try {
+			const { url = fastify.config.DEFAULT_FEED_URL, force = "0" } =
+				request.query;
 
-				const feedData = await getFeedData(fastify, url, force);
+			const feedData = await getFeedData(fastify, url, force);
 
-				reply.send(feedData);
-			} catch (error) {
-				fastify.log.error("Feed endpoint error:", error);
-				reply.internalServerError(error);
-			}
-		},
-	);
+			reply.send(feedData);
+		} catch (error) {
+			fastify.log.error("Feed endpoint error:", error);
+			reply.internalServerError(error);
+		}
+	});
 }
