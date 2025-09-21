@@ -42,7 +42,7 @@ async function handleFeedUrl(fastify: FastifyInstance, url: string) {
 }
 
 async function handleCachedData(fastify: FastifyInstance, url: string) {
-	const newsData = await getNewsFromDatabase(fastify);
+	const newsData = await getNewsFromDatabase(fastify, url);
 
 	if (newsData.items && newsData.items.length === 0) {
 		fastify.log.info("No cached items found, fetching fresh data instead");
@@ -81,6 +81,7 @@ async function handleFeedWithContentCheck(
 	const { allExist, newItemsCount } = await checkIfAllItemsExist(
 		fastify,
 		feedData.items,
+		url,
 	);
 
 	if (allExist) {
@@ -132,7 +133,7 @@ async function handleNewItemsFound(
 
 	const newItemsAdded = await saveNewsToDatabase(fastify, feedData.items, url);
 
-	const newsData = await getNewsFromDatabase(fastify);
+	const newsData = await getNewsFromDatabase(fastify, url);
 
 	return {
 		data: {
