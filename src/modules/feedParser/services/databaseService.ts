@@ -1,9 +1,15 @@
 import type { FastifyInstance } from "fastify";
 import type { RSSItem } from "../types/types";
 
-export async function getNewsFromDatabase(fastify: FastifyInstance) {
+export async function getNewsFromDatabase(
+	fastify: FastifyInstance,
+	feedUrl?: string,
+) {
 	try {
+		const whereClause = feedUrl ? { feedUrl } : {};
+
 		const newsFromDb = await fastify.prisma.news.findMany({
+			where: whereClause,
 			orderBy: {
 				pubDate: "desc",
 			},
@@ -118,6 +124,7 @@ export async function isFeedDataFresh(
 export async function checkIfAllItemsExist(
 	fastify: FastifyInstance,
 	feedItems: RSSItem[],
+	feedUrl: string,
 ): Promise<{
 	allExist: boolean;
 	existingCount: number;
@@ -130,6 +137,7 @@ export async function checkIfAllItemsExist(
 		try {
 			const existingNews = await fastify.prisma.news.findFirst({
 				where: {
+					AND: [{ feedUrl }],
 					OR: [{ link: item.link }, { guid: item.guid || item.link }],
 				},
 			});
