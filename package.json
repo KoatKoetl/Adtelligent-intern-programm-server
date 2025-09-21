@@ -4,6 +4,7 @@
 	"main": "index.js",
 	"scripts": {
 		"build": "tsc",
+		"build_prisma": "tsc && npx prisma generate --schema=./src/prisma/schema.prisma",
 		"start": "node build/index.js",
 		"dev": "concurrently -k -p \"[{name}]\" -n \"TypeScript,App\" -c \"yellow.bold,cyan.bold\" \"tsc -w\" \"nodemon\"",
 		"lint": "biome check",
