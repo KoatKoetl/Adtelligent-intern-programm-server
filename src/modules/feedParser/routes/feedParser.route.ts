@@ -3,10 +3,10 @@ import type { FastifyInstance } from "fastify";
 import { schema } from "../schema/getData.schema";
 import { getFeedData } from "../services/handleFeed";
 
-export async function getFeedDataRoutes(fastify: FastifyInstance) {
+export default async function getFeedDataRoutes(fastify: FastifyInstance) {
 	const route = fastify.withTypeProvider<JsonSchemaToTsProvider>();
 
-	route.get("/feed", { schema: schema }, async (request, reply) => {
+	route.get("/api/feed", { schema: schema }, async (request, reply) => {
 		try {
 			const { url = fastify.config.DEFAULT_FEED_URL, force = "0" } =
 				request.query;
