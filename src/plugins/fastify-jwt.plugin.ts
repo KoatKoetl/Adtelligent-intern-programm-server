@@ -10,7 +10,7 @@ export default fp(async (fastify: FastifyInstance) => {
 		cookie: {
 			cookieName: "token",
 			signed: false,
-		}
+		},
 	});
 
 	fastify.pluginLoaded(pluginName);
