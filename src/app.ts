@@ -33,26 +33,19 @@ async function buildApp(options: AppOptions = {}) {
 		fastify.log.info("Starting to load plugins");
 		await fastify.register(AutoLoad, {
 			dir: join(__dirname, "plugins"),
-			options: options,
+			options,
 			ignorePattern: /^((?!plugin).)*$/,
 		});
-
 		fastify.log.info("Plugins loaded successfully");
-	} catch (error) {
-		fastify.log.error("Error in autoload:", error);
-		throw error;
-	}
 
-	try {
-		fastify.decorate("routeLoaded", (routeName: string) => {
-			fastify.log.info(`Route loaded: ${routeName}`);
+		fastify.log.info("Starting to load routes");
+		await fastify.register(AutoLoad, {
+			dir: join(__dirname, "modules"),
+			options,
+			dirNameRoutePrefix: false,
+			ignorePattern: /.*(?<!route)\.(ts|js)$/,
 		});
-
-		fastify.register(AutoLoad, {
-			dir: join(__dirname, "routes"),
-			options: options,
-			ignorePattern: /^((?!route).)*$/,
-		});
+		fastify.log.info("Routes loaded successfully");
 	} catch (error) {
 		fastify.log.error("Error in autoload:", error);
 		throw error;
