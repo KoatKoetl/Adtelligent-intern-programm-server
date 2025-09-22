@@ -22,3 +22,10 @@ model News {
   createdAt   DateTime  @default(now())
 	feedUrl     String
 }
+
+model User {
+	id      	String    @id @default(auto()) @map("_id") @db.ObjectId
+  username 	String
+  login    	String @unique
+  password 	String
+}
