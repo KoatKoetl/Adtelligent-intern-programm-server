@@ -5,7 +5,7 @@ export default async function logOutUser(fastify: FastifyInstance) {
 	const route = fastify.withTypeProvider<JsonSchemaToTsProvider>();
 
 	route.post(
-		"/api/auth/logout",
+		"/auth/logout",
 		{
 			preHandler: async (request) => {
 				await request.jwtVerify();

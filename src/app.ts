@@ -41,7 +41,9 @@ async function buildApp(options: AppOptions = {}) {
 		fastify.log.info("Starting to load routes");
 		await fastify.register(AutoLoad, {
 			dir: join(__dirname, "modules"),
-			options,
+			options: {
+				prefix: "/api",
+			},
 			dirNameRoutePrefix: false,
 			ignorePattern: /.*(?<!route)\.(ts|js)$/,
 		});

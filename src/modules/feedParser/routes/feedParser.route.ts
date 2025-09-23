@@ -6,7 +6,7 @@ import { getFeedData } from "../services/handleFeed";
 export default async function getFeedDataRoutes(fastify: FastifyInstance) {
 	const route = fastify.withTypeProvider<JsonSchemaToTsProvider>();
 
-	route.get("/api/feed", { schema: schema }, async (request, reply) => {
+	route.get("/feed", { schema: schema }, async (request, reply) => {
 		try {
 			const { url = fastify.config.DEFAULT_FEED_URL, force = "0" } =
 				request.query;

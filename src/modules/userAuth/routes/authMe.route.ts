@@ -6,7 +6,7 @@ export default async function authUser(fastify: FastifyInstance) {
 	const route = fastify.withTypeProvider<JsonSchemaToTsProvider>();
 
 	route.get(
-		"/api/auth/me",
+		"/auth/me",
 		{
 			preHandler: async (request) => {
 				await request.jwtVerify();

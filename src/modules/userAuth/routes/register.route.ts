@@ -7,7 +7,7 @@ export default async function registerUser(fastify: FastifyInstance) {
 	const route = fastify.withTypeProvider<JsonSchemaToTsProvider>();
 
 	route.post(
-		"/api/auth/register",
+		"/auth/register",
 		{ schema: registerSchema },
 		async (request, reply) => {
 			try {
