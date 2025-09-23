@@ -1,5 +1,6 @@
 import * as cheerio from "cheerio";
 import type { FastifyInstance } from "fastify";
+import { timeout, userAgent } from "../../../constants/constants";
 
 interface ParsedArticle {
 	url: string;
@@ -7,10 +8,6 @@ interface ParsedArticle {
 	heroImage: string;
 	content: string;
 }
-
-const userAgent =
-	"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36";
-const timeout = 15000; // 15 seconds
 
 export async function parseArticle(
 	fastify: FastifyInstance,
