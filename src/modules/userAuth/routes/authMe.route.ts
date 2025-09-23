@@ -1,6 +1,6 @@
 import type { JsonSchemaToTsProvider } from "@fastify/type-provider-json-schema-to-ts";
 import type { FastifyInstance } from "fastify";
-import { JWTUser } from "../types/types";
+import type { JWTUser } from "../types/types";
 
 export default async function authUser(fastify: FastifyInstance) {
 	const route = fastify.withTypeProvider<JsonSchemaToTsProvider>();
