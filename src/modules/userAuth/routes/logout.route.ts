@@ -11,7 +11,7 @@ export default async function logOutUser(fastify: FastifyInstance) {
 				await request.jwtVerify();
 			},
 		},
-		async (request, reply) => {
+		async (_request, reply) => {
 			reply.clearCookie("token", { httpOnly: true });
 			return { message: "Logout successful" };
 		},

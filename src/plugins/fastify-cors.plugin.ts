@@ -1,5 +1,5 @@
-import type { FastifyInstance } from "fastify";
 import fastifyCors from "@fastify/cors";
+import type { FastifyInstance } from "fastify";
 import fp from "fastify-plugin";
 
 const pluginName = "fastify-cors-plugin";
