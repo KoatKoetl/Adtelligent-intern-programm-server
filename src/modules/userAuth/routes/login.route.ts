@@ -13,7 +13,11 @@ export default async function logInUser(fastify: FastifyInstance) {
 			try {
 				const { login, password } = request.body;
 				const user = await handleUserLogin(fastify, login, password);
-				reply.setCookie("token", user.token, { httpOnly: true });
+				reply.setCookie("token", user.token, {
+					httpOnly: true,
+					path: "/",
+					domain: "localhost",
+				});
 				reply.send({ message: user.message });
 			} catch (error) {
 				fastify.log.error("Login endpoint error:", error);

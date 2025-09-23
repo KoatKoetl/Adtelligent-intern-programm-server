@@ -12,7 +12,11 @@ export default async function logOutUser(fastify: FastifyInstance) {
 			},
 		},
 		async (_request, reply) => {
-			reply.clearCookie("token", { httpOnly: true });
+			reply.clearCookie("token", {
+				httpOnly: true,
+				path: "/",
+				domain: "localhost",
+			});
 			return { message: "Logout successful" };
 		},
 	);
