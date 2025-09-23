@@ -7,7 +7,7 @@ export default async function articleRoutes(fastify: FastifyInstance) {
 	const route = fastify.withTypeProvider<JsonSchemaToTsProvider>();
 
 	route.get(
-		"/api/feed/article",
+		"/feed/article",
 		{ schema: parseArticleSchema },
 		async (request, reply) => {
 			const { url } = request.query;
