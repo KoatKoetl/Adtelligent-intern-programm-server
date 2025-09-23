@@ -1,3 +1,5 @@
+import { passwordPattern } from "../../../constants/constants";
+
 export const registerSchema = {
 	body: {
 		type: "object",
@@ -7,7 +9,7 @@ export const registerSchema = {
 			password: {
 				type: "string",
 				minLength: 8,
-				pattern: "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$",
+				pattern: passwordPattern,
 			},
 		},
 		required: ["username", "login", "password"],
