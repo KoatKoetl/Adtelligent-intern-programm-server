@@ -63,6 +63,7 @@ export async function saveNewsToDatabase(
 					author: item.creator || item.author || null,
 					guid: item.guid || item.link || null,
 					feedUrl: feedUrl || "",
+					imageUrl: item.imageUrl || "",
 				},
 			});
 
