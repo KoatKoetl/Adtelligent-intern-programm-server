@@ -21,6 +21,7 @@ model News {
   guid        String?   @unique
   createdAt   DateTime  @default(now())
 	feedUrl     String
+	imageUrl    String
 }
 
 model User {

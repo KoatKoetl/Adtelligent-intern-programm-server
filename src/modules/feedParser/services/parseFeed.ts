@@ -18,13 +18,24 @@ async function parseFeed(
 
 		const feed = await parser.parseURL(url);
 
+		const processedItems =
+			feed.items?.map((item) => {
+				const imgRegex = /<img\s+src\s*=\s*['"]([^'"]+)['"]/;
+				const imgMatch = item.content?.match(imgRegex);
+
+				return {
+					...item,
+					imageUrl: imgMatch ? imgMatch[1] : null,
+				};
+			}) || [];
+
 		return {
 			feedInfo: {
 				title: feed.title || "Untitled Feed",
 				description: feed.description || "",
 				link: feed.link || url,
 			},
-			items: feed.items || [],
+			items: processedItems,
 		};
 	} catch (error) {
 		fastify.log.error("RSS parsing error:", error);

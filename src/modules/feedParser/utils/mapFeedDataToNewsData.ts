@@ -11,6 +11,7 @@ const mapFeedDataToNewsData = async (feedData: ParsedFeedData) => {
 			pubDate: item.pubDate ? new Date(item.pubDate).toISOString() : null,
 			author: item.creator || item.author || null,
 			guid: item.guid || item.link || null,
+			imageUrl: item.imageUrl || "",
 		})),
 		total: feedData.items.length,
 	};
