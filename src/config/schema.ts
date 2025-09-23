@@ -7,8 +7,9 @@ export const EnvSchema = {
 		HOST: { type: "string" },
 		DATABASE_URL: { type: "string", format: "uri" },
 		DEFAULT_FEED_URL: { type: "string", format: "uri" },
+		JWT_SECRET: { type: "string" },
 	},
-	required: ["PORT", "HOST", "DATABASE_URL", "DEFAULT_FEED_URL"],
+	required: ["PORT", "HOST", "DATABASE_URL", "DEFAULT_FEED_URL", "JWT_SECRET"],
 	additionalProperties: false,
 } as const;
 
