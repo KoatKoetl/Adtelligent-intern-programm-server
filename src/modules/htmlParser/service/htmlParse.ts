@@ -1,6 +1,13 @@
+import retry from "async-retry";
 import * as cheerio from "cheerio";
 import type { FastifyInstance } from "fastify";
 import { timeout, userAgent } from "../../../constants/constants";
+
+const RETRY_OPTIONS = {
+	retries: 3,
+	minTimeout: 1000,
+	factor: 2,
+};
 
 interface ParsedArticle {
 	url: string;
@@ -20,8 +27,34 @@ export async function parseArticle(
 			throw fastify.httpErrors.badRequest("Invalid URL format");
 		}
 
-		const html = await fetchHtml(url);
-		const $ = cheerio.load(html);
+		const fetchAndLoad = async (
+			_bail: (err: Error) => void,
+			attempt: number,
+		) => {
+			fastify.log.info(
+				`[Article Parsing] Attempt ${attempt} started for URL: ${url}`,
+			);
+
+			const html = await fetchHtml(url);
+
+			const $ = cheerio.load(html);
+			return $;
+		};
+
+		let $: cheerio.Root;
+
+		try {
+			$ = await retry(fetchAndLoad, {
+				...RETRY_OPTIONS,
+				onRetry: (error: Error, attempt: number) => {
+					fastify.log.warn(
+						`[Article Parsing] Attempt ${attempt} failed for URL ${url}. Retrying... Error: ${error.message}`,
+					);
+				},
+			});
+		} catch (error) {
+			throw handleParsingError(fastify, error);
+		}
 
 		const parsedData: ParsedArticle = {
 			url,
