@@ -9,17 +9,10 @@ const RETRY_OPTIONS = {
 	factor: 2,
 };
 
-interface ParsedArticle {
-	url: string;
-	title: string;
-	heroImage: string;
-	content: string;
-}
-
 export async function parseArticle(
 	fastify: FastifyInstance,
 	url: string,
-): Promise<ParsedArticle> {
+): Promise<any> {
 	try {
 		fastify.log.info(`Parsing article from: ${url}`);
 
@@ -56,7 +49,7 @@ export async function parseArticle(
 			throw handleParsingError(fastify, error);
 		}
 
-		const parsedData: ParsedArticle = {
+		const parsedData = {
 			url,
 			title: extractTitle($),
 			heroImage: extractHeroImage($, url),
