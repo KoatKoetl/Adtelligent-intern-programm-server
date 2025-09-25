@@ -6,4 +6,15 @@ export const parseArticleSchema = {
 		},
 		required: ["url"],
 	},
+	response: {
+		200: {
+			type: "object",
+			properties: {
+				url: { type: "string" },
+				title: { type: "string" },
+				heroImage: { type: "string" },
+				content: { type: "string" },
+			},
+		},
+	},
 } as const;

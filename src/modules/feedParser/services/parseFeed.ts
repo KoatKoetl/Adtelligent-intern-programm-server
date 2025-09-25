@@ -1,3 +1,4 @@
+import retry from "async-retry";
 import type { FastifyInstance } from "fastify";
 import Parser from "rss-parser";
 import type { ParsedFeedData } from "../types/types";
@@ -13,10 +14,34 @@ async function parseFeed(
 	fastify: FastifyInstance,
 	url: string,
 ): Promise<ParsedFeedData> {
-	try {
-		fastify.log.info(`Parsing feed from: ${url}`);
+	const RETRY_OPTIONS = {
+		retries: 4,
+		minTimeout: 500,
+		factor: 2,
+		onRetry: (error: Error, attempt: number) => {
+			fastify.log.info(
+				`Attempt ${attempt} failed to parse feed: ${error.message}. Retrying...`,
+			);
+		},
+	};
 
-		const feed = await parser.parseURL(url);
+	try {
+		const attemptParse = async () => {
+			fastify.log.info(`Attempting to parse feed from: ${url}`);
+			const feed = await parser.parseURL(url);
+			return feed;
+		};
+
+		let feed: Parser.Output<{ [key: string]: any }>;
+
+		try {
+			feed = await retry(attemptParse, RETRY_OPTIONS);
+		} catch (error) {
+			fastify.log.error("RSS parsing failed after all retries:", error);
+			throw fastify.httpErrors.badRequest(
+				`Failed to parse RSS feed after ${RETRY_OPTIONS.retries + 1} attempts: ${error.message}`,
+			);
+		}
 
 		const processedItems =
 			feed.items?.map((item) => {

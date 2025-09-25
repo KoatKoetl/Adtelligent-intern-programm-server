@@ -14,4 +14,13 @@ export const registerSchema = {
 		},
 		required: ["username", "login", "password"],
 	},
+	response: {
+		201: {
+			type: "object",
+			properties: {
+				message: { type: "string" },
+				username: { type: "string" },
+			},
+		},
+	},
 } as const;

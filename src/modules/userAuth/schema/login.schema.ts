@@ -7,4 +7,12 @@ export const loginSchema = {
 		},
 		required: ["login", "password"],
 	},
+	response: {
+		200: {
+			type: "object",
+			properties: {
+				message: { type: "string" },
+			},
+		},
+	},
 } as const;
