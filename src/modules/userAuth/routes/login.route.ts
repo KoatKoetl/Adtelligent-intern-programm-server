@@ -13,7 +13,8 @@ export default async function logInUser(fastify: FastifyInstance) {
 			reply.setCookie("token", user.token, {
 				httpOnly: true,
 				path: "/",
-				domain: "localhost",
+				sameSite: "none",
+				secure: true,
 			});
 			reply.send({ message: user.message });
 		} catch (error) {

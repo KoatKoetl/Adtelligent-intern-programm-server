@@ -15,7 +15,8 @@ export default async function logOutUser(fastify: FastifyInstance) {
 			reply.clearCookie("token", {
 				httpOnly: true,
 				path: "/",
-				domain: "localhost",
+				sameSite: "none",
+				secure: true,
 			});
 			return { message: "Logout successful" };
 		},
